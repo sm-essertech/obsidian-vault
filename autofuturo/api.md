@@ -7,7 +7,6 @@ tags:
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue.svg)](https://github.com/autofuturo/autofuturo-api)
 
 ## Task / Bugs
----
 ### 🚨 Priority Tasks
 
 - [ ] Añadir toda la data necesaria del usuario que estaba presente en el user_metadata en el endpoint del me
