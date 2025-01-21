@@ -8,8 +8,6 @@ tags:
 ## 📋 Tareas / Bugs
 ### 🚨 Prioritarias
 
-- [ ] Remover la sincronizacion de user_metadata con la tabla users
-- [ ] Remover los datos innecesarios de user_metadata en todos los usuarios
 - [ ] Finalizar Crud Métodos de pago.
 
 ### 😴 Para Después
@@ -28,3 +26,5 @@ tags:
 - [x] Añadir toda la data necesaria del usuario que estaba presente en el user_metadata en el endpoint del me
 - [x] Bug en la respuesta del endpoint /me las fechas createdAt and updatedAt todos tienen la misma fecha
 - [x] Al crear una organización la respuesta no devuelve el teléfono, el instagram ni el correo
+- [x] Remover la sincronizacion de user_metadata con la tabla users
+- [x] Remover los datos innecesarios de user_metadata en todos los usuarios
