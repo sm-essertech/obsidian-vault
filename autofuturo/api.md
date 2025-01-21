@@ -13,6 +13,7 @@ tags:
 - [ ] Colocar la organización default del usuario dentro del endpoint del me
 - [ ] Finalizar Crud Métodos de pago.
 - [ ] Al crear una organización la respuesta no devuelve el teléfono, el instagram ni el correo .
+- [ ] Bug en la respuesta del endpoint /me las fechas createdAt and updatedAt todos tienen la misma fecha
 
 ### 😴 Para Después
 - [ ] Refactorizar relación entre categorías y listing-types (remover CategoryToListingType)
