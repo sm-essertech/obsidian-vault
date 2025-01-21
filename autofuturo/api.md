@@ -9,6 +9,7 @@ tags:
 ### 🚨 Prioritarias
 
 - [ ] Añadir toda la data necesaria del usuario que estaba presente en el user_metadata en el endpoint del me
+- [ ] Remover la sincronizacion de user_metadata con la tabla users
 - [ ] Finalizar Crud Métodos de pago.
 
 ### 😴 Para Después
