@@ -1,6 +1,10 @@
+---
+tags:
+  - autofuturo
+---
+
 # Autofuturo API
 __github__  https://github.com/autofuturo/autofuturo-api
-
 Todo
 ---
 __Importantes__
