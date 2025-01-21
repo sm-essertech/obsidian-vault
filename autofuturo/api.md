@@ -12,11 +12,12 @@ tags:
 - [ ] Crear un endpoint que devuelva todas las organizaciones de un usuario
 - [ ] Colocar la organización default del usuario dentro del endpoint del me
 - [ ] Finalizar Crud Métodos de pago.
-- [ ] Al crear una organización la respuesta no devuelve el teléfono, el instagram ni el correo .
 - [ ] Bug en la respuesta del endpoint /me las fechas createdAt and updatedAt todos tienen la misma fecha
+- [ ] Al crear una organización la respuesta no devuelve el teléfono, el instagram ni el correo
 
 ### 😴 Para Después
 - [ ] Refactorizar relación entre categorías y listing-types (remover CategoryToListingType)
+- [ ] Crear Script para Login
 
 ### 🐛 Bugs
 ### ✅ Completadas
