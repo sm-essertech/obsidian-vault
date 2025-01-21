@@ -20,8 +20,23 @@
               "icon": "lucide-file",
               "title": "Index"
             }
+          },
+          {
+            "id": "d1eb53a609ce4942",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "autofuturo/autofuturo.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "autofuturo"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -77,8 +92,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "40b1d1c9fa5f5041",
@@ -94,7 +108,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Index.md",
+                "file": "autofuturo/autofuturo.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +118,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Index"
+              "title": "Backlinks for autofuturo"
             }
           },
           {
@@ -113,12 +127,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Index.md",
+                "file": "autofuturo/autofuturo.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Index"
+              "title": "Outgoing links from autofuturo"
             }
           },
           {
@@ -140,10 +154,10 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Index.md"
+                "file": "autofuturo/autofuturo.md"
               },
               "icon": "lucide-list",
-              "title": "Outline of Index"
+              "title": "Outline of autofuturo"
             }
           },
           {
@@ -161,8 +175,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -175,8 +188,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "42bcc40c3cf76c65",
+  "active": "d1eb53a609ce4942",
   "lastOpenFiles": [
-    "Index.md"
+    "Index.md",
+    "autofuturo/autofuturo.md",
+    "autofuturo",
+    "projects/Untitled.md",
+    "projects/autofuturo",
+    "projects"
   ]
 }
