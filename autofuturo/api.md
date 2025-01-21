@@ -13,6 +13,12 @@ tags:
 - [ ] Colocar la organización default del usuario dentro del endpoint del me
 - [ ] Finalizar Crud Métodos de pago.
 
+### 😴 Para Después
+- [ ] Refactorizar relación entre categorías y listing-types (remover CategoryToListingType)
+
+### 🐛 Bugs
+
+
 ### ✅ Completadas
 
 - [X] Error al eliminar un usuario desde el endpoint del API 
