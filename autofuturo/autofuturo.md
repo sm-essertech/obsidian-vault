@@ -1,3 +1,3 @@
 # AutoFuturo
 
-Cambio Daniel
+Cambio Daniel, Miguel
