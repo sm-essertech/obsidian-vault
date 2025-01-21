@@ -17,7 +17,6 @@ tags:
 - [ ] Refactorizar relación entre categorías y listing-types (remover CategoryToListingType)
 
 ### 🐛 Bugs
-- [ ] esto es una prueba
 ### ✅ Completadas
 
 - [X] Error al eliminar un usuario desde el endpoint del API 

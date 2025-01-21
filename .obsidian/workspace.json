@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "18b491dcd3295f6f",
+        "id": "8635a36cf093ed17",
         "type": "tabs",
         "children": [
           {
-            "id": "ea37b800ce3cbadb",
+            "id": "91f7d2199f627980",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "autofuturo/api.md",
+                "mode": "preview",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "api"
             }
           }
         ]
@@ -73,7 +77,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "40b1d1c9fa5f5041",
@@ -89,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Index.md",
+                "file": "autofuturo/api.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -99,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Index"
+              "title": "Backlinks for api"
             }
           },
           {
@@ -108,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Index.md",
+                "file": "autofuturo/api.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Index"
+              "title": "Outgoing links from api"
             }
           },
           {
@@ -135,10 +140,10 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Index.md"
+                "file": "autofuturo/api.md"
               },
               "icon": "lucide-list",
-              "title": "Outline of Index"
+              "title": "Outline of api"
             }
           },
           {
@@ -169,15 +174,20 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "ea37b800ce3cbadb",
+  "active": "91f7d2199f627980",
   "lastOpenFiles": [
     "autofuturo/api.md",
     "autofuturo/autofuturo.md",
     "README.md",
-    "Index_ES.md",
+    "Untitled.canvas",
+    "nombre-nota.md",
     "Index.md",
+    "autofuturo/autofuturo-api.md",
     "conflict-files-obsidian-git.md",
-    "dev-team-template.md",
-    "autofuturo"
+    "Untitled",
+    "autofuturo",
+    "projects/Untitled.md",
+    "projects/autofuturo",
+    "projects"
   ]
 }
