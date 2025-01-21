@@ -1,3 +1,7 @@
+---
+tags:
+  - autofuturo
+---
 # AutoFuturo
 
 Cambio Daniel, Miguel

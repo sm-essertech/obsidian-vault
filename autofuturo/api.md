@@ -1,3 +1,8 @@
+---
+tags:
+  - autofuturo
+---
+
 # Autofuturo API
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue.svg)](https://github.com/autofuturo/autofuturo-api)
 
