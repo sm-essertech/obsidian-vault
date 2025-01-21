@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "autofuturo/autofuturo.md",
+                "file": "autofuturo/api.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "autofuturo"
+              "title": "api"
             }
           }
         ]
@@ -175,8 +175,10 @@
   },
   "active": "faa7f57eec20c67c",
   "lastOpenFiles": [
-    "Index.md",
     "autofuturo/autofuturo.md",
+    "dev-team-template.md",
+    "autofuturo/api.md",
+    "Index.md",
     "conflict-files-obsidian-git.md",
     "autofuturo"
   ]
