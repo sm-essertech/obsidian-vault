@@ -8,6 +8,7 @@ tags:
 ## 📋 Tareas / Bugs
 ### 🚨 Prioritarias
 
+- [ ] Agregar filtro de countryId a /billing/payment-methods
 - [ ] Finalizar Crud Métodos de pago.
 
 ### 😴 Para Después
