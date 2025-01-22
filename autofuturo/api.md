@@ -8,6 +8,7 @@ tags:
 ## 📋 Tareas / Bugs
 ### 🚨 Prioritarias
 
+- [ ] Agregar pais al que pertenencen las organizaciones en la respuesta
 - [ ] Agregar cuentas a los metodos de pago.
 - [ ] Iniciar Crud de Planes 
 - [ ] Crear Detalles de los planes
