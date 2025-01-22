@@ -8,7 +8,6 @@ tags:
 ## 📋 Tareas / Bugs
 ### 🚨 Prioritarias
 
-- [ ] Agregar pais al que pertenencen las organizaciones en la respuesta
 - [ ] Iniciar Crud de Planes 
 - [ ] Crear Detalles de los planes
 - [ ] Crear Pricing de planes
@@ -18,6 +17,7 @@ tags:
 ### 🐛 Bugs
 ### ✅ Completadas
 
+- [x] Agregar pais al que pertenencen las organizaciones en la respuesta
 - [x] resolver error en created_at / updated_at en payment_methods 
 - [x] Agregar cuentas a los metodos de pago.
 - [x] Seleccionar organizacion por defecto si esta es eliminada.
