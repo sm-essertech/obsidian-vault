@@ -17,6 +17,7 @@ tags:
 - [ ] Refactorizar relación entre categorías y listing-types (remover CategoryToListingType)
 
 ### 🐛 Bugs
+- [ ] resolver error en created_at / updated_at en payment_methods 
 ### ✅ Completadas
 
 - [x] Seleccionar organizacion por defecto si esta es eliminada.
