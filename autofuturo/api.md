@@ -12,11 +12,11 @@ tags:
 - [ ] Crear Detalles de los planes
 - [ ] Crear Pricing de planes
 ### 😴 Para Después
-- [ ] Refactorizar relación entre categorías y listing-types (remover CategoryToListingType)
 
 ### 🐛 Bugs
 ### ✅ Completadas
 
+- [x] Refactorizar relación entre categorías y listing-types (remover CategoryToListingType)
 - [x] Agregar pais al que pertenencen las organizaciones en la respuesta
 - [x] resolver error en created_at / updated_at en payment_methods 
 - [x] Agregar cuentas a los metodos de pago.
