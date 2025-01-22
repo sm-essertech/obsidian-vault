@@ -9,7 +9,8 @@ tags:
 ### 🚨 Prioritarias
 
 - [ ] Agregar filtro de countryId a /billing/payment-methods
-- [ ] Finalizar Crud Métodos de pago.
+- [ ] Agregar payment method fields los datos del pago y para el formulario de registro de pago
+- [ ] Agregar cuentas a los metodos de pago.
 
 ### 😴 Para Después
 - [ ] Refactorizar relación entre categorías y listing-types (remover CategoryToListingType)
