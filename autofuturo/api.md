@@ -8,8 +8,8 @@ tags:
 ## 📋 Tareas / Bugs
 ### 🚨 Prioritarias
 
+- [ ] Seleccionar organizacion por defecto si esta es eliminada.
 - [ ] Agregar cuentas a los metodos de pago.
-- [ ] Permitir en la creación de la organización los datos del address, dirección, ciudad, etc.
 
 ### 😴 Para Después
 - [ ] Refactorizar relación entre categorías y listing-types (remover CategoryToListingType)
@@ -17,6 +17,7 @@ tags:
 ### 🐛 Bugs
 ### ✅ Completadas
 
+- [x] Permitir en la creación de la organización los datos del address, dirección, ciudad, etc.
 - [X] Error al eliminar un usuario desde el endpoint del API 
 - [X] El token al crear varias organizaciones se vuelve pesado
 - [X] El API al encontrar un usuario ya creado no devuelve la validación de que el usuario ya existe, este usuario existe en la tabla de usuarios
