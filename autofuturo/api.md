@@ -8,14 +8,11 @@ tags:
 ## 📋 Tareas / Bugs
 ### 🚨 Prioritarias
 
-- [ ] Agregar filtro de countryId a /billing/payment-methods
-- [ ] Agregar payment method fields los datos del pago y para el formulario de registro de pago
 - [ ] Agregar cuentas a los metodos de pago.
 - [ ] Permitir en la creación de la organización los datos del address, dirección, ciudad, etc.
 
 ### 😴 Para Después
 - [ ] Refactorizar relación entre categorías y listing-types (remover CategoryToListingType)
-- [ ] Crear Script para Login
 
 ### 🐛 Bugs
 ### ✅ Completadas
@@ -31,3 +28,6 @@ tags:
 - [x] Al crear una organización la respuesta no devuelve el teléfono, el instagram ni el correo
 - [x] Remover la sincronizacion de user_metadata con la tabla users
 - [x] Remover los datos innecesarios de user_metadata en todos los usuarios
+- [x] Agregar filtro de countryId a /billing/payment-methods
+- [x] Agregar payment method fields los datos del pago y para el formulario de registro de pago
+- [x] Crear Script para Login
