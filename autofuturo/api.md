@@ -12,6 +12,7 @@ tags:
 - [ ] Iniciar Crud de Planes 
 - [ ] Crear Detalles de los planes
 - [ ] Crear Pricing de planes
+- [ ] Agregar en las organizaciones el país al cuál pertenece
 ### 😴 Para Después
 - [ ] Refactorizar relación entre categorías y listing-types (remover CategoryToListingType)
 
