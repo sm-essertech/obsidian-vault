@@ -8,7 +8,6 @@ tags:
 ## 📋 Tareas / Bugs
 ### 🚨 Prioritarias
 
-- [ ] Seleccionar organizacion por defecto si esta es eliminada.
 - [ ] Agregar cuentas a los metodos de pago.
 
 ### 😴 Para Después
@@ -17,6 +16,7 @@ tags:
 ### 🐛 Bugs
 ### ✅ Completadas
 
+- [x] Seleccionar organizacion por defecto si esta es eliminada.
 - [x] Permitir en la creación de la organización los datos del address, dirección, ciudad, etc.
 - [X] Error al eliminar un usuario desde el endpoint del API 
 - [X] El token al crear varias organizaciones se vuelve pesado
