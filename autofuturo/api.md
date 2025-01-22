@@ -9,9 +9,11 @@ tags:
 ### 🚨 Prioritarias
 
 - [ ] Agregar cuentas a los metodos de pago.
-
+- [ ] Iniciar Crud de Planes 
+- [ ] Crear Detalles de los planes
+- [ ] Crear Pricing de planes
 ### 😴 Para Después
-- [X] Refactorizar relación entre categorías y listing-types (remover CategoryToListingType)
+- [ ] Refactorizar relación entre categorías y listing-types (remover CategoryToListingType)
 
 ### 🐛 Bugs
 ### ✅ Completadas
