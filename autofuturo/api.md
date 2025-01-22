@@ -11,7 +11,7 @@ tags:
 - [ ] Agregar cuentas a los metodos de pago.
 
 ### 😴 Para Después
-- [ ] Refactorizar relación entre categorías y listing-types (remover CategoryToListingType)
+- [X] Refactorizar relación entre categorías y listing-types (remover CategoryToListingType)
 
 ### 🐛 Bugs
 ### ✅ Completadas
