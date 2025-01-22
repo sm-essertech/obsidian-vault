@@ -11,6 +11,7 @@ tags:
 - [ ] Agregar filtro de countryId a /billing/payment-methods
 - [ ] Agregar payment method fields los datos del pago y para el formulario de registro de pago
 - [ ] Agregar cuentas a los metodos de pago.
+- [ ] Permitir en la creación de la organización los datos del address, dirección, ciudad, etc.
 
 ### 😴 Para Después
 - [ ] Refactorizar relación entre categorías y listing-types (remover CategoryToListingType)
