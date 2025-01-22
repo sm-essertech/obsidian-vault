@@ -9,7 +9,6 @@ tags:
 ### 🚨 Prioritarias
 
 - [ ] Agregar pais al que pertenencen las organizaciones en la respuesta
-- [ ] Agregar cuentas a los metodos de pago.
 - [ ] Iniciar Crud de Planes 
 - [ ] Crear Detalles de los planes
 - [ ] Crear Pricing de planes
@@ -17,9 +16,10 @@ tags:
 - [ ] Refactorizar relación entre categorías y listing-types (remover CategoryToListingType)
 
 ### 🐛 Bugs
-- [ ] resolver error en created_at / updated_at en payment_methods 
 ### ✅ Completadas
 
+- [x] resolver error en created_at / updated_at en payment_methods 
+- [x] Agregar cuentas a los metodos de pago.
 - [x] Seleccionar organizacion por defecto si esta es eliminada.
 - [x] Permitir en la creación de la organización los datos del address, dirección, ciudad, etc.
 - [X] Error al eliminar un usuario desde el endpoint del API 
