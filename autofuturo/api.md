@@ -8,7 +8,7 @@ tags:
 ## 📋 Tareas / Bugs
 ### 🚨 Prioritarias
 
-- [ ] Agregar order a plan_features
+- [x] Agregar order a plan_features
 - [ ] Remover created_by updated_by de plans y payment_methods
 - [ ] Dividir el schema.prisma en distintos archivos. 
 
