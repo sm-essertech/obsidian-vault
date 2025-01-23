@@ -8,9 +8,10 @@ tags:
 ## 📋 Tareas / Bugs
 ### 🚨 Prioritarias
 
-- [x] Agregar order a plan_features
-- [ ] Remover created_by updated_by de plans y payment_methods
 - [ ] Dividir el schema.prisma en distintos archivos. 
+- [ ] Crear Crud de Facturas.
+- [ ] Crear Crud de pagos.
+- [ ] Crear Crud de Subscripciones.
 
 ### 😴 Para Después
 
@@ -19,3 +20,6 @@ tags:
 
 
 ### ✅ Completadas
+
+- [x] Agregar order a plan_features
+- [x] Remover created_by updated_by de plans y payment_methods

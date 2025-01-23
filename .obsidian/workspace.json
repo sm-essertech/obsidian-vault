@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "autofuturo/api.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
@@ -175,8 +175,9 @@
   },
   "active": "c92b1e610c73658b",
   "lastOpenFiles": [
-    "autofuturo/api-plan-map.png",
+    "Untitled.md",
     "autofuturo/api.md",
+    "autofuturo/api-plan-map.png",
     "plans_api_map.md",
     "README.md",
     "autofuturo/autofuturo.md",
