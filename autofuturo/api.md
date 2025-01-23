@@ -11,9 +11,14 @@ tags:
 - [ ] Iniciar Crud de Planes 
 - [ ] Crear Detalles de los planes
 - [ ] Crear Pricing de planes
+- [ ] Dividir el schema.prisma en distintos archivos. 
+
 ### 😴 Para Después
 
+
 ### 🐛 Bugs
+
+
 ### ✅ Completadas
 
 - [x] Refactorizar relación entre categorías y listing-types (remover CategoryToListingType)

@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "autofuturo/api.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
@@ -77,8 +77,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "40b1d1c9fa5f5041",
@@ -176,6 +175,7 @@
   },
   "active": "91f7d2199f627980",
   "lastOpenFiles": [
+    "Untitled.md",
     "autofuturo/api.md",
     "autofuturo/autofuturo.md",
     "README.md",
