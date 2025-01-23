@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "8635a36cf093ed17",
+        "id": "e6008a754cd3888c",
         "type": "tabs",
         "children": [
           {
-            "id": "91f7d2199f627980",
+            "id": "c92b1e610c73658b",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -173,12 +173,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "91f7d2199f627980",
+  "active": "c92b1e610c73658b",
   "lastOpenFiles": [
-    "Untitled.md",
+    "plans_api_map.md",
+    "README.md",
     "autofuturo/api.md",
     "autofuturo/autofuturo.md",
-    "README.md",
     "Untitled.canvas",
     "nombre-nota.md",
     "Index.md",
