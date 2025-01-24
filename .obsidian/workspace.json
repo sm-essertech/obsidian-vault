@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "autofuturo/api.md",
+                "file": "kokuy/sellers.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "api"
+              "title": "sellers"
             }
           }
         ]
@@ -175,8 +175,10 @@
   },
   "active": "c92b1e610c73658b",
   "lastOpenFiles": [
-    "Untitled.md",
     "autofuturo/api.md",
+    "kokuy/sellers.md",
+    "kokuy",
+    "Untitled.md",
     "autofuturo/api-plan-map.png",
     "plans_api_map.md",
     "README.md",
@@ -186,7 +188,6 @@
     "Index.md",
     "autofuturo/autofuturo-api.md",
     "conflict-files-obsidian-git.md",
-    "Untitled",
     "autofuturo",
     "projects/Untitled.md",
     "projects/autofuturo",
