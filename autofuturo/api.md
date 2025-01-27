@@ -8,10 +8,10 @@ tags:
 ## 📋 Tareas / Bugs
 ### 🚨 Prioritarias
 
-- [ ] Dividir el schema.prisma en distintos archivos. 
+- [x] Dividir el schema.prisma en distintos archivos. 
+- [x] Crear Crud de Subscripciones.
 - [ ] Crear Crud de Facturas.
 - [ ] Crear Crud de pagos.
-- [ ] Crear Crud de Subscripciones.
 - [ ] Recordar a Francisco sobre el redis de desarrollo
 
 ### 😴 Para Después
