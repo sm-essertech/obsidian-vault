@@ -13,15 +13,28 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "kokuy/sellers.md",
+                "file": "autofuturo/api.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "sellers"
+              "title": "api"
+            }
+          },
+          {
+            "id": "a4fa5a79354d2abb",
+            "type": "leaf",
+            "state": {
+              "type": "excalidraw",
+              "state": {
+                "file": "Excalidraw/Drawing 2025-01-27 09.59.29.excalidraw.md"
+              },
+              "icon": "excalidraw-icon",
+              "title": "Drawing 2025-01-27 09.59.29.excalidraw"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -77,7 +90,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "40b1d1c9fa5f5041",
@@ -170,16 +184,19 @@
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "obsidian-git:Open Git source control": false
+      "obsidian-git:Open Git source control": false,
+      "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "c92b1e610c73658b",
+  "active": "a4fa5a79354d2abb",
   "lastOpenFiles": [
     "autofuturo/api.md",
+    "Excalidraw/Drawing 2025-01-27 09.59.29.excalidraw.md",
+    "Excalidraw",
+    "autofuturo/api-plan-map.png",
     "kokuy/sellers.md",
     "kokuy",
     "Untitled.md",
-    "autofuturo/api-plan-map.png",
     "plans_api_map.md",
     "README.md",
     "autofuturo/autofuturo.md",
