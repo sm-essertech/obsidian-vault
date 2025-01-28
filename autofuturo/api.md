@@ -12,7 +12,13 @@ tags:
 - [x] Crear Crud de Subscripciones.
 - [ ] Crear Crud de Facturas.
 - [ ] Crear Crud de pagos.
-- [ ] Recordar a Francisco sobre el redis de desarrollo
+- [ ] Crear funcion(es) de postgres con respecto a los [[#Flujo de pagos|flujos de pago]].
+	- [ ] Endpoint de Subscripciones `POST /subscriptions/purchase` donde se Subscripcion, Factura y el Page registrado desde el formulario junto con el comprobante de pago.
+	- [ ] Funcion de postgres para actualizar los estados
+	- [ ] Cronjob script para obtener las tasas de las monedas(ves)
+	- [ ] Cronjob script diario que mapee las subscripciones y actualice sus estados + envio de notificaciones.
+- [ ] Internacionalizacion de la API i18n
+- [ ] Definir permisos de roles globales y de organizaciones, asi como validar los casos  __own__
 
 ### 😴 Para Después
 - [ ] Add listing_type Filter in `GET /sources/categories`
@@ -25,3 +31,15 @@ tags:
 
 - [x] Agregar order a plan_features
 - [x] Remover created_by updated_by de plans y payment_methods
+
+## Flujo de pagos 
+ 1. Cuando se modifica una factura debe modificarse tambien los estatus de sus pagos relacionados.
+	1.1 Si factura.status = "paid" -> factura.payments.status = "paid"  
+ 
+2. Cuando se modifica el estado de un pago se debe modificar tambien el estado de su factura, y con ello el de su subscripcion.
+	2.1 Si pago.status = "paid" y pago.amount >= factura.amount -> factura.status = paid
+		2.1.1 Si pago.status = "paid" y pago.amount < factura.amount -> factura.status = "partially_paid" AND organization.balance = balance - factura.amount.
+		2.1.2 Si pago.status cambia de "paid" a "peding" o algun otro estado:
+			2.1.2.1 si fecha < factura.expires_at ->  factura.status = "pending" & subscription.status = "active"
+			2.1.2.2 si fecha < factura_expires_at + x( 3 dias de gracia) dias -> factura.status = "overdue" &  subscription.status = "active"
+			2.1.2.2 si fecha < factura_expires_at + x( 5 dias de gracia) dias -> factura.status = "expired" & subscription.status = "inactive"
