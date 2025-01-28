@@ -10,8 +10,11 @@ tags:
 
 - [x] Dividir el schema.prisma en distintos archivos. 
 - [x] Crear Crud de Subscripciones.
-- [ ] Crear Crud de Facturas.
+- [x] Crear Crud de Facturas.
 - [ ] Crear Crud de pagos.
+- [ ] Reconsiderar la aplicacion de codigos de descuento para una sola compra.
+- [ ] Crear Crud sencillo de Balance.
+- [ ] Crear ingegracion con s3 driver y la subida de la recibos al registrar pago
 - [ ] Crear funcion(es) de postgres con respecto a los [[#Flujo de pagos|flujos de pago]].
 	- [ ] Endpoint de Subscripciones `POST /subscriptions/purchase` donde se Subscripcion, Factura y el Page registrado desde el formulario junto con el comprobante de pago.
 	- [ ] Funcion de postgres para actualizar los estados
