@@ -11,7 +11,7 @@ tags:
 - [x] Dividir el schema.prisma en distintos archivos. 
 - [x] Crear Crud de Subscripciones.
 - [x] Crear Crud de Facturas.
-- [ ] Crear Crud de pagos.
+- [x] Crear Crud de pagos.
 - [ ] Reconsiderar la aplicacion de codigos de descuento para una sola compra.
 - [ ] Crear Crud sencillo de Balance.
 - [ ] Crear ingegracion con s3 driver y la subida de la recibos al registrar pago
