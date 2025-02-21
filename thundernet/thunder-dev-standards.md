@@ -13,19 +13,32 @@ En este documento se enlistan las pautas a seguir para mantener un estandar para
 	- [Pull Requests](#pull%20requests)
 		- [Resolución de conflictos](#resolución%20de%20conflictos)
 	- [Archivo README](#archivo%20readme)
-- Nomenclatura:
-	- Variables
 - [Frontend](#frontend)
 - [Backend](#backend)
+	- [API](#api)
+		- [Rest](#rest)
+		- [Seguridad](#seguridad)
+			- [Autenticación y autorización](#autenticación%20y%autorización) 
+			- [Cors](#cors)
+			- [Rate Limiting](#rate%20limiting)
+		- [Documentación](#documentacion)
+			- [Swagger](#swagger)
+			- [Postman](#postman)
+		- [Manejo de errores](#manejo%20de%20errores)
+			- [Respuestas][#respuestas]
+	- [Migraciones](#migraciones)
+	- [Pruebas](#tests)
+		- [TDD](#tdd)
+		- [Rendimiento](#rendimiento)
 ## Idiomas
 Todo el código fuente debe ser manejado en inglés, eso incluye:
 - Comentarios
-	- Funciones / métodos
-	- Clases
-	- Archivos
-	- Repositorios
-	- Commits
-	- Ramas
+- Funciones / métodos
+- Clases
+- Archivos
+- Repositorios
+- Commits
+- Ramas
 - Comandos(Ej: "npm run migrations", "make build")
 
 Por otro lado hemos optado por mantener toda la documentación en español, ya sea hacia el usuario final o incluso en la documentación técnica. 
@@ -76,7 +89,6 @@ Cada mensaje de commit debe mantener la siguiente estrucutura:
 [optional body]
 
 [optional footer(s)]
-
 ```
 
 > Los mensajes de commit deben estar **en inglés**, siguiendo el estándar Conventional Commits.
@@ -225,3 +237,173 @@ thunder-backend/
 ## Frontend 
 
 ## Backend
+En el backend manejaremos todo lo relacionado a la lógica de negocios, por lo que involucrará a todos aquellos servicios de almacenamiento y procesamiento interno, por lo que resulta importante mantener una estructura en base a protocolos conocidos y buenas practicas.
+### API
+Al momento de levantar un servicio interno se debe garantizar la interacción fluida y monitoreable entre los distintos servicios y aplicaciones de software, por lo que es importante definir a profundidad los estandares en la construcción de una API.
+#### Rest
+Para la construcción de HTTP APIs debemos manejar los estandares de Rest. Lo que en esencia involucra:
+- Nomenclatura de [endpoints](https://vicente-aguilera-perez.medium.com/las-10-mejores-pr%C3%A1cticas-para-nombrar-api-rest-endpoints-48b8bcbd1397).
+	- Versionamiento: Se opta por manejar versiones en la URL. Ej: `/v1/users/`
+- Uso de los métodos HTTP:
+	- GET: Lectura y obtención de datos
+	- POST: Escritura de datos o disparador de eventos.
+	- PUT: Actualizar todo un recurso existente o crear uno nuevo si no existe. 
+	- PATCH: Actualizar parcialmente un recurso existente.
+	- DELETE: Eliminar un recurso existente.
+- Transmisión y manipulación de datos en formato [JSON](https://www.json.org/json-en.html)
+- Uso de [Estados HTTP] en las respuestas del servidor. Las comunmente usuadas son:
+	- 2xx: Operación exitosa
+		- 200: OK
+		- 201: CREATED
+	- 4xx: Errores del cliente
+		- 400 - BAD REQUEST
+		- 401 - UNAUTHORIZED
+		- 403 - FORBIDEN
+		- 404 - NOT FOUND
+		- 409 - CONFLICT
+	- 5xx: Errores del servidor
+		- 500: INTERNAL SERVER ERROR
+		
+	> Mas adelante en la lectura se retoma la importancia de los estados HTTP  en el manejo de errores.
+#### Seguridad
+Es necesario establecer un mínimo estandard de seguridad ante el manejo de la información sensible y el acceso a la misma. Por suerte ya existen buenas practicas que nos permiten minimizar los riesgos, sin embargo es importante recordar que la seguridad es un conjunto de múltiples estrategias combinadas.
+
+##### Autenticación y autorización
+La __autenticación__ se refiere a la validación de la identidad de los usuarios o entidades que tienen acceso al sistema. Sirve como una primera capa de seguridad y de esta podemos considerar los siguientes métodos:
+- [JWT]() Para el manejo de sesiones de usuarios con `access_token` de 15 minutos y `refresh_token` para mantener las sesiones activas de manera segura.
+- [Bcrypt]() como algoritmo de hash para almacenar las contraseñas de usuarios de manera segura en las base de datos.
+- API Keys de _32 bytes_ de longitud como mínimo en la comunicación entre servicios internos. Ej: `AH3epiBfvrHJOikRbNKuHk2jQpvrp11YVdE+knnwtIE=`. 
+
+> __NO__ usar la clave en el ejemplo. Si necesita una nueva API Key, genere una clave nueva.
+
+Por otro lado la __autorización__ es el proceso mediante el cual, una vez validada la identidad en el paso anterior, se valida que clase de permisos tiene y que operaciones puedes efectuar dentro del sistema. Con este fin se diseñan los sistemas con una estructura de [RBAC]() (Role Based Access Control), en el cual un usuario puede tener un rol asignado, y ese rol una serie de permisos sobre los recursos del sistema. En nuestro caso manejaremos la siguiente estrucutra:
+- __Módulos__: El listado de los recursos del sistema. Ej: Nómina, Inventario, etc.
+- __Permisos__: El listado de operaciones que puede ejecutar un usuario sobre un modulo:
+	- __Leer(read)__: Lectura de datos. 
+	- __Crear(create)__: Insertar un nuevo recurso. 
+	- __Actualizar(update)__: Actualizar un recurso existente. 
+	- __Actualizar propio(update_self)__: Permite actualizar recursos únicamente creados por el usuario.
+	- __Eliminar(delete)__: Eliminar un recurso existente. 
+	- __Eliminar propio(delete_self)__: Permite eliminar recursos únicamente creados por el usuario.
+	- __Todos(all)__: Todas las operaciones son permitidas.
+- __Roles__: Un rol es un titulo que agrupa un conjunto de permisos y que puede ser asignado a un usuario. Ej: administrador, ténico, contador, etc.
+
+De modo que relación entre un rol y los permisos asignados estaría determinada por: Rol -> Modulos -> Permisos. Por ejemplo, consideremos un rol técnico(technician):
+
+```shell
+# @ = role
+# * = module
+# - = permission
+
+@technician:
+	* clients
+		- read
+	* inventory
+		- read
+		- update
+	* tech_support
+		- all
+```
+
+En este ejemplo un usuario asignado con el rol de técnico(technician) tendría permisos de lectura de la información de los clientes, sin embargo no puede crear nuevos clientes o modificar la información existente, igualmente con inventario, un ténico podría ver los elementos del inventario y actualizar la existencia de un item, sin embargo no puede crear o eliminar nuevos, por último el técnico tiene todos los permisos dentro del módulo de soporte técnico.
+
+#### CORS
+[Cross-Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) es un mecanismo de seguridad implementado por los navegadores web que permite o restringe solicitudes HTTP entre diferentes orígenes (dominios, protocolos o puertos). Su objetivo es proteger a los usuarios de ataques maliciosos como el robo de datos, al garantizar que solo recursos autorizados puedan acceder a una API.
+
+Las políticas de CORS son necesarias para asegurar un nivel de seguridad para permitir solicitudes entre dominios y evitar el acceso no autorizado, por esta razón hay un conjunto de requerimientos mínimos a configurar:
+
+- __Origenes permitidos__: `Access-Control-Allow-Origin: https://example.thundernet.com`
+
+- __Métodos HTTP permitidos__: `Access-Control-Allow-Methods: GET, POST, PUT, DELETE`
+
+- __Headers permitidos__: `Access-Control-Allow-Headers: Content-Type, Authorization`
+
+- __Permitir credenciales__: `Access-Control-Allow-Credentials: true`
+
+Aunque CORS es necesario al levantar un proyecto en un servidor, cada configuración puede variar segun el entorno y durante el desarrollo puede ser incluso incómodo tener reglas restrictivas, por lo que es una buena práctica mantener la configuracion de las políticas en variables de entorno. Ej:
+
+```shell
+# .env file
+
+# SERVER
+HOST=0.0.0.0
+PORT=8080
+
+# CORS
+CORS_ORIGIN=* # or https://example.thunder.com
+CORS_METHODS=* # or GET,POST,PUT,PATCH,DELETE
+CORS_HEADERS=* # or Conent-type,Authorization
+CORS_CREDENTIALS=true
+
+# ...
+```
+
+Este enfoque permite mantener una configuración distinta en multiples entornos de manera eficiente.
+
+#### Rate Limiting
+
+El rate limiting (límite de tasa) es un mecanismo de control que restringe el número de solicitudes que un cliente (usuario, IP, aplicación, etc.) puede realizar a una API o servicio en un período de tiempo específico. Su objetivo es prevenir el abuso, proteger contra ataques DDoS, garantizar la estabilidad del sistema y distribuir recursos de manera equitativa.
+
+Existen varias estrategias de aplicación de rate limiting con distintos enfoques:
+
+- __Fixed Window (Ventana Fija)__:  Limita las solicitudes a un número máximo en intervalos fijos (ej: 100 solicitudes por minuto). Si un cliente envía 100 solicitudes en el primer minuto, deberá esperar al siguiente minuto para enviar más.
+
+- __Sliding Window (Ventana Deslizante)__: Calcula las solicitudes en una ventana de tiempo móvil (ej: últimos 60 segundos).  Si el límite es 100 solicitudes por minuto, las solicitudes se cuentan en intervalos continuos, no en bloques fijos.
+
+- __Token Bucket (Cubeta de Tokens)__:   Los clientes consumen "tokens" (ej: 1 token por solicitud), que se reponen a una tasa fija. Un balde con 100 tokens se recarga a 1 token por segundo. Si se agotan, el cliente debe esperar.
+
+- __Leaky Bucket (Cubeta con Fugas)__: Las solicitudes entran en un "balde" que se vacía a una tasa constante. Si el balde tiene capacidad para 100 solicitudes y una tasa de 10 solicitudes/segundo, excederlo genera rechazos.
+
+- __Rate Limiting por IP o Usuario__:  Aplica límites basados en atributos del cliente (IP, ID de usuario, API key). Ej: 1000 solicitudes/día por usuario.
+
+En nuestro caso optamos por la implementación de [Token Bucket](https://jgam.medium.com/rate-limiter-token-bucket-algorithm-efd86758c8ee) debido a sus ventajas, tales como:
+1. __Control de rafagas__: Los clientes pueden usar tokens acumulados para picos cortos.
+2. __Simplicidad__: Fácil de implementar con sistemas como Redis para almacenar tokens.
+
+> La estrategia de rate limiting a usar puede cambiar y aun esta por definirse.
+
+
+### Documentación
+La documentación es una pieza esencial para el mantenimiento de un sistema de software, y la APIs no son la excepción, por suerte hoy en día existen varias tecnologías que optimizan este proceso, por lo que cada API debe contener su propia documentación interactiva que permita a otros desarrolladores interactuar fácilmente con esta.
+
+#### Swagger
+[Swagger](https://swagger.io/) es una herramienta  bastante sencilla y útil de implementar para una API por un conjunto de beneficios:
+- Corre en el servidor y puede usarse desde cualquier navegador.
+- Se construye a medidas que desarrollas.
+- Usa estandares como la especificación [Open API](https://swagger.io/resources/open-api/).
+- Permite a cualquier desarrollador como interactuar con la API en tiempo real.
+
+Aunque ciertamente incluye algunas desventajas mencionables:
+- Dificultad de lectura en APIs grandes.
+- Es dificil restringir su acceso a personal autorizado unicamente.
+
+Debido a esto es una herramienta a considerar en APIs internas y proyectos pequeños.
+#### Postman
+[Postman](https://www.postman.com/) es una herramienta bastante versatil y profesional que ofrece múltiples beneficios para los desarrolladores a la hora de documentar y probar las APIs, tales como:
+- Permite gestinar todo un workspace, por lo que varias APIs pueden gestionarse en la misma aplicación.
+- Creación de colecciones de peticiones.
+- Manejo de variables de entorno.
+- Ejecución de scripts.
+- Configuración de pruebas.
+
+Es una herramienta lider en el mercado con varios años de recorrido, vale la pena incluir un directorio de `collections` en los proyectos.
+
+### Manejo de errores
+El software es un ecosistema lejos de ser perfecto, aun implementando multiples estrategias de desarrollo, pruebas, arquitectura y diseño, los bugs son inevitables, por lo que la intención es detectarlos lo antes posible y reducir el impacto de aquellos que aun no han sido detectados, además los errores pueden contener información sensible del sistema, lo que puede ser explotado por agentes maliciosos, por lo que es necesario idear un plan de como lidiar con los errores.
+
+En una API pueden suceder dos tipos de errores (sin contar errores de lógica de programación) que pueden romper con el flujo natural del sistema:
+
+Los errores introducidos del lado del cliente:
+- Envío de datos inválidos.
+- Intentos de acceso a recursos sin la autorización correspondiente.
+- Inteno de acceso a recursos que no existen.
+
+Y los errores que suceden internamente en el servidor:
+- Errores en la interacción o conexión con la base de datos.
+- Un error provocado por no validar casos de valores NULL.
+
+Por lo que es importante identificar un caso o el otro y tomar las acciones necesarias.
+
+#### Respuesas
+Podemos definir un mensaje de error desde la API tomando el siguiente formato:
+- __succes__: 
