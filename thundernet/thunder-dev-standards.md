@@ -404,6 +404,55 @@ Y los errores que suceden internamente en el servidor:
 
 Por lo que es importante identificar un caso o el otro y tomar las acciones necesarias.
 
+#### Códigos de HTTP
+Al momento de notificar un error al frontend es importante usar los protocolos correctos para idenficiar los errores de manera sencilla. Estos son algunos casos:
+
+- __400 - Bad Request__: Es usado cuando se recibe una petición desde el cliente que no cumple con todas las valicaciones requeridas, algunos ejemplos son:
+	- Formato inválido del body json
+	- ID es requerido / inválido
+	- Un HEADER necesario no ha podido ser encontrado.
+- __401 - Unauthorized__: Es usado cuando se recibe una petición a un recurso protegido y no se ha podido validar el tonen de autenticación, ya sea porque no es válido, el token haya expirado o simplemente no se ha encontrado.
+- __403 - Forbiden__: Es usado cuando se recibe una petición a un recurso protegido, se ha validado el token de autenticación, sin embargo el usuario o cliente no posee los permisos para acceder a ese recurso.
+- __404 - Not Found__: Es usado cuando no se ha podido encontrar algún recurso al cual se ha tratado de acceder.
+- __409 - Conflict__: Es usado cuando una petición ha querido ejecutar una acción la cual podría provocar un conflicto en la base de datos o los recursos del servidor, un ejemplo claro sería cambiar un registro para adoptar el valor único de un registro ya existente. Ej: Actualizar el correo de un usuario por el correo de otro usuario en la base de datos.
+- __500 - Internal Server Error__: Es usuado cuando ocurre un error que no ha sido mapeado o considerado al realizar un proceso, por lo que es importante que el mensaje de error enviado al cliente no sea explícito, ya que el mensaje de lo verdaderamente ocurrido debe mostrarse en los logs del servidor o generar alguna acción de notificación al servicio ténico, mas nunca debe exponerse al cliente por motivos de seguridad.
+
+
 #### Respuesas
 Podemos definir un mensaje de error desde la API tomando el siguiente formato:
-- __succes__: 
+- __status__: integer
+- __error__: 
+	- __message__: string
+	- __details__: string
+
+Dentro del mensaje de error tenemos:
+- __message__: Un mensaje general sobre el error ocurrido, este puede ser aprovechado por el frontend a modo de feedback para el cliente.
+- __details__: Se usa a modo de completar la idea por el mensaje general y este puede ser un string o un arreglo de strings.
+
+Por lo que finalmente algunos ejemplos de respuestas de errores podrían ser:
+```json
+{
+	"status": 404,
+	"error": {
+		"message": "usuario no encontrado",
+		"details": "no se ha encontado usuario con el correo john.doe@gmail.com"
+	}
+}
+
+{
+	"status": 401,
+	"error": {
+		"message": "correo o contraseña inválidos",
+		"details": "las credenciales enviadas son incorrectas o no existen."
+	}
+}
+
+{
+	"status": 500,
+	"error": {
+		"message": "Error al elminar usuario",
+		"details": "Ha ocurrido un error inesperado durante la eliminación del usuario."
+	}
+}
+```
+
