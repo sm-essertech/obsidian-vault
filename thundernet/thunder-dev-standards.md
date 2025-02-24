@@ -13,7 +13,16 @@ En este documento se enlistan las pautas a seguir para mantener un estandar para
 	- [Pull Requests](#pull%20requests)
 		- [Resolución de conflictos](#resolución%20de%20conflictos)
 	- [Archivo README](#archivo%20readme)
+- [Combenciones generales]()
 - [Frontend](#frontend)
+	- [Accesibilidad](#accesibilidad)
+	- [SEO](#seo)
+	- [Rendimiento](#rendimiento)
+		- [Optimización de imágenes](#optimización%20de%20imágenes)
+	- [Lighthouse](#lighthouse)
+	- [Responsividad]()
+		- [Mobile First]()
+	- [CDN]()
 - [Backend](#backend)
 	- [API](#api)
 		- [Rest](#rest)
@@ -239,7 +248,55 @@ thunder-backend/
 	- __Instruciones__: Ejemplos de los comandos y detalles necesarios para levantar el proyecto. Ej: "1. Levantar el proyecto ejecutando `$ docker compose -d up`"
 
 ## Frontend 
+Al momento de desarrollar frontend debemos tomar en cuenta que es la capa directa de interacción entre el usuario y la lógica de negocio, por lo que es necesario garantizar el rendimiento y la experiencia de uso del sistema o sitio web que se esté desarrolando, por lo que en esta sección listamos un conjuto mínimo de buenas prácticas.
 
+### Accesibilidad
+Para garantizar que la aplicación sea óptima y utilizable por personas con discapacidades es importante considerar los siguientes aspectos: 
+
+- __Cumplimiento de las WCAG__: Adherirse a las Pautas de Accesibilidad al Contenido Web ([WCAG](https://accessibility.fiu.edu/resources/wcag/)) para garantizar que el contenido sea accesible para personas con discapacidades. Esto incluye proporcionar texto alternativo para imágenes, garantizar suficiente contraste de color y utilizar HTML semántico.
+- __Atributos ARIA__: Utilizar atributos [ARIA](https://developer.mozilla.org/es/docs/Web/Accessibility/ARIA) (Aplicaciones de Internet Enriquecidas Accesibles) para mejorar la accesibilidad del contenido dinámico y los componentes de la interfaz de usuario personalizados.
+- __Navegación con teclado__: Asegurarse de que todos los elementos interactivos puedan ser accedidos y operados usando un teclado.
+- __Pruebas con lectores de pantalla__: Probar regularmente la aplicación con lectores de pantalla para identificar y abordar problemas de accesibilidad.
+- __Pruebas de contraste de color__: Verificar que el texto y las imágenes tengan suficiente contraste de color para ser legibles.
+
+### SEO
+Aquellas plataformas de frontend que deben poder ser accedidas por los clientes deben posicionarse en los primeros resultados de búsqueda en los navegadores, por lo que es necesario que sigan las pautas principales de optimización para motores de búsqueda. Esto incluye:
+
+- __HTML Semántico__: Utilizar etiquetas HTML semánticas para estructurar el contenido de manera que sea significativo para los motores de búsqueda. Por ejemplo: `<article>`,  `<nav>`, `<aside>`.
+- __Metaetiquetas__: Optimizar las metaetiquetas (ej., descripción, palabras clave) para proporcionar información concisa y relevante a los motores de búsqueda. 
+- __Estrucutra de la url__:  Crear URLs limpias, legibles y ricas en palabras clave.
+- __Sitemap__: Enviar un mapa del sitio ([sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/overview?hl=es)) a los motores de búsqueda para ayudarles a rastrear e indexar el sitio de manera efectiva.
+- __Squema markup__: Implementar el [marcado de esquema](https://umbraco.com/knowledge-base/schema-markup/) para proporcionar datos estructurados sobre el contenido, mejorando la comprensión de los motores de búsqueda y la visualización de fragmentos enriquecidos.
+
+### Rendimiento:
+Existen algunas estrategias que ya son indispensables para maximizar el rendimiento de carga de los sitiós web y sus componentes. Como mínimo debe cumplir con:
+
+- __División del código__:  Dividir la aplicación en fragmentos más pequeños que se pueden cargar bajo demanda, reduciendo el tiempo de carga inicial.
+- __Lazy Load__: Cargar imágenes y otros recursos no críticos solo cuando están a punto de entrar en el campo de visión.
+- __Minificación y compresión__: Minificar archivos CSS y JavaScript para reducir su tamaño, y utilizar algoritmos de compresión como Gzip o Brotli para reducir aún más los tiempos de transferencia.
+- __Caché__: Aprovechar el almacenamiento en caché del navegador y los service workers para almacenar en caché los activos estáticos y las respuestas de la API, mejorando los tiempos de carga para los usuarios que regresan.
+
+#### Optimización de imagenes
+La descarga del contenido multimeda es probablemente una de las tareas más pesadas al momento de cargar un sitio web, este puede afectar gravemente a la experiencia del usuario, por lo que es importante considerar una serie de recomendaciones.
+
+__Redimensionar y recortar__
+ - Utiliza herramientas como Adobe Photoshop o Canva para redimensionar y recortar imágenes a las dimensiones necesarias para tu sitio web. Esto reduce significativamente el tamaño del archivo.
+ - Si solo necesitas mostrar imágenes de hasta 1000 píxeles de ancho, no tiene sentido cargar una imagen de 4000 píxeles de ancho.
+
+__Compresión__
+- __Compresión con perdida (Lossy)__: Utiliza herramientas como [TinyPNG](https://tinypng.com/) o [Image Compressor](https://imagecompressor.com/) para comprimir imágenes con pérdida. Este método reduce el tamaño del archivo sacrificando algo de calidad visual, ideal para fotografías donde la pérdida no es perceptible.
+- __Compresión sin perdida (Lossless)__: Ideal para gráficos, logotipos o imágenes con áreas de color sólido. Herramientas como [OptiPNG](https://optipng.sourceforge.net/) o [ImageOptim](https://imageoptim.com/mac) pueden comprimir sin afectar la calidad visual.  
+
+__Formatos de imagen__
+- __WebP__: Ofrece una mejor compresión que JPEG y PNG, especialmente para imágenes con texto o gráficos.
+- __JPEG__: Ideal para fotografías.
+- __PNG__:  Mejor para gráficos y logotipos donde se requiere transparencia.
+
+__Eliminación de metadatos__
+Utiliza herramientas para eliminar información innecesaria como la fecha de captura o la cámara utilizada, lo que reduce el tamaño del archivo sin afectar la calidad visual.
+
+__Uso de herramientas automáticas__
+Puede ser favorable integrar herramientas para automatizar los procesos de compresión, conversión y redimensión al momento de subir imágenes desde la plataforma web.
 ## Backend
 En el backend manejaremos todo lo relacionado a la lógica de negocios, por lo que involucrará a todos aquellos servicios de almacenamiento y procesamiento interno, por lo que resulta importante mantener una estructura en base a protocolos conocidos y buenas practicas.
 ### API
