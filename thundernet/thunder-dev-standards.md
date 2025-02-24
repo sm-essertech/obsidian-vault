@@ -25,11 +25,15 @@ En este documento se enlistan las pautas a seguir para mantener un estandar para
 			- [Swagger](#swagger)
 			- [Postman](#postman)
 		- [Manejo de errores](#manejo%20de%20errores)
-			- [Respuestas][#respuestas]
+			- [Códigos de HTTP](#códigos%20de%20http)
+			- [Respuestas](#respuestas)
 	- [Migraciones](#migraciones)
-	- [Pruebas](#tests)
+	- [Pruebas](#pruebas)
 		- [TDD](#tdd)
 		- [Rendimiento](#rendimiento)
+			- [Herramientas](#herramientas)
+			- [Estrategias](#estrategias)
+			- [Tipos de prueba](#tipos%20de%20prueba)
 ## Idiomas
 Todo el código fuente debe ser manejado en inglés, eso incluye:
 - Comentarios
@@ -407,27 +411,30 @@ Por lo que es importante identificar un caso o el otro y tomar las acciones nece
 #### Códigos de HTTP
 Al momento de notificar un error al frontend es importante usar los protocolos correctos para idenficiar los errores de manera sencilla. Estos son algunos casos:
 
-- __400 - Bad Request__: Es usado cuando se recibe una petición desde el cliente que no cumple con todas las valicaciones requeridas, algunos ejemplos son:
-	- Formato inválido del body json
-	- ID es requerido / inválido
-	- Un HEADER necesario no ha podido ser encontrado.
+- __400 - Bad Request__: Es usado cuando se recibe una petición desde el cliente que no envía todos los valores requeridos para procesar la petición. Ejemplo la ausencia del Body JSON o de un HEADER necesario en la operación
 - __401 - Unauthorized__: Es usado cuando se recibe una petición a un recurso protegido y no se ha podido validar el tonen de autenticación, ya sea porque no es válido, el token haya expirado o simplemente no se ha encontrado.
 - __403 - Forbiden__: Es usado cuando se recibe una petición a un recurso protegido, se ha validado el token de autenticación, sin embargo el usuario o cliente no posee los permisos para acceder a ese recurso.
 - __404 - Not Found__: Es usado cuando no se ha podido encontrar algún recurso al cual se ha tratado de acceder.
 - __409 - Conflict__: Es usado cuando una petición ha querido ejecutar una acción la cual podría provocar un conflicto en la base de datos o los recursos del servidor, un ejemplo claro sería cambiar un registro para adoptar el valor único de un registro ya existente. Ej: Actualizar el correo de un usuario por el correo de otro usuario en la base de datos.
+- __422 - Unprocessable Entity__: Cuando se recibe una petición desde el cliente, la cual, a diferencia del error _400_, se reciben todos los datos necesarios, sin embargo no se cumplen las validaciones especificadas por el servidor, como los formatos de los datos envidados.
+- __429 - Too Many Requests__: Es usado cuando se sobrepasa el límite de tasas. [Ver rate limiting](#rate%20limiting).
 - __500 - Internal Server Error__: Es usuado cuando ocurre un error que no ha sido mapeado o considerado al realizar un proceso, por lo que es importante que el mensaje de error enviado al cliente no sea explícito, ya que el mensaje de lo verdaderamente ocurrido debe mostrarse en los logs del servidor o generar alguna acción de notificación al servicio ténico, mas nunca debe exponerse al cliente por motivos de seguridad.
 
 
-#### Respuesas
+#### Respuestas
 Podemos definir un mensaje de error desde la API tomando el siguiente formato:
 - __status__: integer
 - __error__: 
 	- __message__: string
 	- __details__: string
+	- __endpoint__: string
+	- __timestamp__: datetime
 
 Dentro del mensaje de error tenemos:
 - __message__: Un mensaje general sobre el error ocurrido, este puede ser aprovechado por el frontend a modo de feedback para el cliente.
-- __details__: Se usa a modo de completar la idea por el mensaje general y este puede ser un string o un arreglo de strings.
+- __details__: Se usa a modo de completar la idea del mensaje general y este puede ser un string o un arreglo de strings.
+- __endpoint__: Registro del endpoint en donde se produjo el error.
+- __timestamp__: Registro del momento en que ocurre el error.
 
 Por lo que finalmente algunos ejemplos de respuestas de errores podrían ser:
 ```json
@@ -435,7 +442,9 @@ Por lo que finalmente algunos ejemplos de respuestas de errores podrían ser:
 	"status": 404,
 	"error": {
 		"message": "usuario no encontrado",
-		"details": "no se ha encontado usuario con el correo john.doe@gmail.com"
+		"details": "no se ha encontado usuario con el correo john.doe@gmail.com",
+		"endpoint": "/users?email=john.doe@gmail.com",
+		"timestamp": "2023-10-15T14:30:45Z",
 	}
 }
 
@@ -443,7 +452,9 @@ Por lo que finalmente algunos ejemplos de respuestas de errores podrían ser:
 	"status": 401,
 	"error": {
 		"message": "correo o contraseña inválidos",
-		"details": "las credenciales enviadas son incorrectas o no existen."
+		"details": "las credenciales enviadas son incorrectas o no existen.",
+		"endpoint": "/auth/login",
+		"timestamp": "2023-10-15T14:30:45Z",
 	}
 }
 
@@ -451,8 +462,77 @@ Por lo que finalmente algunos ejemplos de respuestas de errores podrían ser:
 	"status": 500,
 	"error": {
 		"message": "Error al elminar usuario",
-		"details": "Ha ocurrido un error inesperado durante la eliminación del usuario."
+		"details": "Ha ocurrido un error inesperado durante la eliminación del usuario.",
+		"endpoint": "/users/123456",
+		"timestamp": "2023-10-15T14:30:45Z",
 	}
 }
 ```
 
+### Migraciones
+Las migraciones son un mecanismo esencial para gestionar la evolución del esquema de la base de datos de manera controlada y predecible. Permiten aplicar cambios al esquema (creación de tablas, adición de columnas, etc.) de forma automatizada y reversible.
+
+- __Control de versiones__: Las migraciones deben gestionarse como código fuente, idealmente dentro del mismo repositorio del proyecto, para garantizar la coherencia entre el código de la aplicación y el esquema de la base de datos.
+
+- __Atomicidad__: Cada migración debe ser atómica, es decir, debe representar un cambio único y lógico en el esquema. Esto facilita el seguimiento de los cambios y la reversión en caso de errores.
+
+- __Reversibilidad__: Cada migración debe tener una operación de reversión (un "undo") que permita deshacer los cambios aplicados. Esto es fundamental para corregir errores o realizar rollbacks a versiones anteriores.
+
+- __Nombrado descriptivo__: Los archivos de migración deben tener nombres descriptivos que indiquen el cambio que realizan. Incluir una marca de tiempo en el nombre del archivo puede ayudar a mantener un orden cronológico. Ejemplo: _20250224103000_create_users_table.sql_ (indica la creación de la tabla "users" con la fecha y hora).
+
+- __Entorno__ : Es importante considerar el entorno de destino al crear migraciones.
+
+- __Transacciones__: Las operaciones dentro de una migración deben ejecutarse dentro de una transacción para garantizar la consistencia de la base de datos en caso de fallos.
+
+- __Pruebas__: Las migraciones deben probarse exhaustivamente en un entorno de desarrollo antes de aplicarse a entornos de producción.
+
+### Pruebas
+Las pruebas son una parte fundamental del desarrollo de software para garantizar la calidad, confiabilidad y correcto funcionamiento de la aplicación.
+
+#### TDD
+El Desarrollo Dirigido por Pruebas ([TDD](https://www.browserstack.com/guide/what-is-test-driven-development)) es una metodología de desarrollo en la que las pruebas unitarias se escriben antes de implementar el código de la aplicación. Este enfoque ayuda a definir claramente los requisitos y el comportamiento esperado del código desde el principio.
+
+- __Ciclo Red-Green-Refactor__: El proceso de TDD sigue un ciclo de tres pasos:
+	- __Red__: Escribir una prueba que falle (porque aún no hay código que la satisfaga).
+	- __Green__: Escribir el código mínimo necesario para que la prueba pase.
+	- __Refactor__: Refactorizar el código para mejorar su estructura, legibilidad y mantenibilidad, sin cambiar su comportamiento.
+- __Pruebas unitarias__: El foco principal de TDD son las pruebas unitarias, que verifican el comportamiento de unidades de código individuales (funciones, métodos, clases) de forma aislada.
+- __Cobertura__: Apuntar a una alta cobertura de pruebas para asegurar que la mayor parte del código esté siendo probado. Sin embargo, la cobertura no es el único indicador de la calidad de las pruebas; también es importante la calidad y relevancia de las pruebas en sí mismas.
+- __Automatización__:  Las pruebas deben ser automatizadas para que puedan ejecutarse de forma rápida y repetible como parte del proceso de desarrollo e integración continua.
+
+#### Rendimiento
+Las pruebas de rendimiento son importantes para evaluar la capacidad de la aplicación para manejar la carga esperada y garantizar una experiencia de usuario óptima.
+
+- __Identificar cuellos de botella__: Utilizar herramientas de perfilamiento y monitoreo para identificar las áreas del código que están causando problemas de rendimiento. 
+- __Simular carga realista__: Diseñar pruebas que simulen la carga de usuarios y patrones de uso reales.
+- __Definir métricas clave__: Establecer métricas claras para medir el rendimiento, como el tiempo de respuesta, la tasa de errores y el uso de recursos (CPU, memoria, disco).
+- __Automatizar pruebas de rendimiento__: Integrar las pruebas de rendimiento en el proceso de integración continua para detectar problemas de rendimiento de forma temprana.
+- __Optimizar consultas a la base de datos__: Revisar y optimizar las consultas a la base de datos para asegurar que sean eficientes y no causen cuellos de botella.
+- __Implementar cache__: Utilizar mecanismos de caché para reducir la carga en la base de datos y mejorar los tiempos de respuesta.
+
+##### Herramientas
+Algunas herramientas últiles para realizar este tipo de pruebas son:
+
+- [k6](https://youtu.be/ghuo8m7AXEM?si=4tjsqhzNm1dLygkW): Herramienta de pruebas de carga moderna, escrita en Go, con scripting en JavaScript.
+- [Postman/Newman](https://learning.postman.com/docs/collections/using-newman-cli/continuous-integration/): Aunque principalmente herramientas para desarrollo y testing de APIs, Newman (la versión CLI de Postman) puede ser integrada en pipelines de automatización para ejecutar colecciones de pruebas de rendimiento.
+
+##### Estrategias
+- __Rate limiting__: Probar que el rate limiting funciona correctamente, verificando que se rechacen las solicitudes que excedan el límite configurado y que se devuelvan los códigos de error HTTP apropiados (ej., 429 Too Many Requests).
+
+- __Filtros y paginación__:  Asegurar que los filtros aplicados a las consultas de la API funcionen de manera eficiente y que la paginación se implemente correctamente para evitar sobrecargar el servidor con grandes conjuntos de datos.
+
+- __Validación de entrada__: Probar que la API maneje correctamente las entradas inválidas, devolviendo errores descriptivos y evitando que las entradas incorrectas causen fallos en el sistema.
+
+- __Manejo de errores__: Verificar que la API maneje correctamente los errores inesperados, como fallos en la base de datos o servicios externos, devolviendo códigos de error HTTP apropiados y mensajes de error informativos.
+
+- __Pruebas de seguridad__: Realizar pruebas de seguridad para detectar posibles vulnerabilidades, como inyección SQL, cross-site scripting (XSS) y otras amenazas comunes.
+
+- __Pruebas de integración__: Verificar que la API se integre correctamente con otros sistemas y servicios, como bases de datos, colas de mensajes y otros componentes de la arquitectura.
+
+- __Pruebas de concurrencia__: Simular múltiples usuarios accediendo a la API simultáneamente para identificar posibles problemas de concurrencia, como bloqueos o condiciones de carrera.
+
+##### Tipos de prueba:
+- __Pruebas de carga (Load testing)__: Evalúa el rendimiento del sistema bajo una carga esperada. Determina cómo se comporta el sistema en condiciones normales y verifica si cumple con los requisitos de rendimiento. 
+- __Pruebas de estrés (Stress testing)__:  Lleva el sistema al límite de sus capacidades para identificar puntos de falla y cuellos de botella. Ayuda a determinar la capacidad máxima del sistema y cómo se recupera después de una falla.
+- __Pruebas de pico (Spike testing):__ Simula aumentos repentinos y extremos en la carga para evaluar cómo el sistema responde a picos inesperados de tráfico.
+- __Pruebas de resistencia (Soak testing)__: Prueba la estabilidad del sistema bajo una carga constante y prolongada durante un período de tiempo prolongado (ej., varias horas o días). Ayuda a identificar problemas de memoria, fugas de recursos y otros problemas que pueden surgir con el tiempo. 
