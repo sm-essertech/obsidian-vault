@@ -16,7 +16,7 @@ En este documento se enlistan las pautas a seguir para mantener un estandar para
 - [Frontend](#frontend)
 	- [Accesibilidad](#accesibilidad)
 	- [SEO](#seo)
-		- [Metaetiquetas](#metaetiquetas)
+		- [Metatags](#metatags)
 	- [Rendimiento](#rendimiento)
 		- [Optimización de imágenes](#optimización%20de%20imágenes)
 	- [Responsividad](#responsividad)
@@ -26,8 +26,15 @@ En este documento se enlistan las pautas a seguir para mantener un estandar para
 		- [Estado Global](#estado%20global)
 	- [Interacción con API](#interacción%20con%20api)
 		- [Axios](#axios)
-		- [Hooks]()
-		- [Mensajes de error]()
+		- [Hooks](#hooks)
+		- [Mensajes de error](#mensajes%20de%20error)
+		- [Caching](#caching)
+		- [Paginación](#paginación)
+		- [Optimización de peticiones](#optimización%20de%20peticiones)
+	- [Pruebas E2E](#pruebas%20e2e)
+        - [Cypress](#cypress)
+        - [Playwright](#playwright)
+        - [Buenas prácticas](#buenas%20prácticas)
 	- [Herramientas para Frontend](#herramientas%20para%frontend)
 		- [Lighthouse](#lighthouse)
 - [Backend](#backend)
@@ -50,6 +57,7 @@ En este documento se enlistan las pautas a seguir para mantener un estandar para
 			- [Herramientas](#herramientas)
 			- [Estrategias](#estrategias)
 			- [Tipos de prueba](#tipos%20de%20prueba)
+
 ## Idiomas
 Todo el código fuente debe ser manejado en inglés, eso incluye:
 - Comentarios
@@ -281,7 +289,7 @@ __Title__
 Es la encargada de decirle a los motores de búsqueda la idea o tema principal sobre el que trata el contenido de la página que va a rastrear y se recomienda **no excederse en 70 caracteres**. Por ejemplo: `<title>Bienvenido a thundernet</title>`.
  
  __Description__ 
- Complemento a la etiqueta Title, con la meta description le daremos una información algo más extensa a los motores de búsqueda del contenido de nuestra página. Trataremos de detallar con la mayor precisión posible el contenido que vamos a ofrecer al usuario. Ejemplo: `<meta name="description" content="El mejor proveedor de servicios de telecomuniaciones de venezuela..."/>
+ Complemento a la etiqueta Title, con la meta description le daremos una información algo más extensa a los motores de búsqueda del contenido de nuestra página. Trataremos de detallar con la mayor precisión posible el contenido que vamos a ofrecer al usuario. Ejemplo: `<meta name="description" content="El mejor proveedor de servicios de telecomuniaciones de venezuela..."/>`
  
 __Etiquetas Hs: Jerarquía de encabezados__ 
 Como su nombre indica, los encabezados servirán para jerarquizar y ordenar el contenido de una página, por orden de importancia (h1, h2, h3…). Se utiliza un único h1, que será el que defina el título del contenido, por ejemplo: `<h1>Sobre nosotros</h1>`
@@ -600,6 +608,74 @@ async function search(query) {
 // Cancelar petición anterior
 searchController.abort();
 ```
+
+### Pruebas E2E
+Las pruebas End-To-End (E2E) son una técnica integral de prueba que simula escenarios de usuario del mundo real para garantizar una funcionalidad, rendimiento y experiencia de usuario perfectos en aplicaciones web, móviles y de escritorio. Estas pruebas verifican todo el flujo de una aplicación desde el inicio hasta el final, abarcando desde la interfaz de usuario hasta la manipulación de datos en la base de datos. El objetivo principal es asegurar que la aplicación funcione correctamente en todas sus partes y que las diferentes funcionalidades se integren sin problemas.
+
+Las pruebas E2E son esenciales para detectar problemas como enlaces rotos, manejo incorrecto de datos, desalineación de elementos de la interfaz de usuario o componentes que no responden, antes de que la aplicación se lance a los usuarios reales. Además, ayudan a identificar posibles problemas de rendimiento, usabilidad y accesibilidad.
+
+#### Cypress
+Cypress es una herramienta popular para pruebas E2E que se destaca por su facilidad de uso y velocidad en la ejecución de pruebas. Ofrece una API intuitiva que facilita la creación de pruebas para desarrolladores sin experiencia previa en testing.
+
+Posee ventajas como:
+
+- __Facilidad de uso__: Cypress tiene una API simple y fácil de aprender.
+- __Velocidad__: Ejecuta pruebas rápidamente, lo que reduce el tiempo necesario para obtener resultados.
+- __Soporte para Navegadores__: Ofrece soporte para múltiples navegadores, permitiendo probar la aplicación en diferentes entornos.
+- __Integración con CI/CD__: Se integra bien con herramientas de integración continua y entrega continua.
+
+Ejemplo de uso:
+```javascript
+describe('My First Test', () => {
+  it('Visits the app root url', () => {
+    cy.visit('http://localhost:5173')
+    cy.contains('h1', 'Bienvenido').should('be.visible')
+  })
+})
+```
+
+#### Playwright
+Playwright es una herramienta moderna para pruebas E2E que permite automatizar navegadores de manera eficiente. Ofrece una API similar a Cypress pero con algunas diferencias en la implementación. Es especialmente útil para pruebas que requieren una gran cantidad de interacciones complejas con la interfaz de usuario.
+
+Posee ventajas como:
+- __Flexibilidad__: Ofrece una gran flexibilidad en la automatización de navegadores, incluyendo Chrome, Firefox y WebKit.
+- __Rendimiento__: Es muy rápido en la ejecución de pruebas, comparable a Cypress.
+- __Soporte para Múltiples Navegadores__: Permite probar la aplicación en diferentes navegadores simultáneamente.
+- __Menor Sobrecarga de Memoria__: Consumo de memoria más eficiente en comparación con otras herramientas.
+
+Ejemplo de uso:
+```javascript
+import { test, expect } from '@playwright/test';
+
+test('navigates to and verifies MongoDB Designer URL', async ({ page }) => {
+  await page.goto('http://localhost:5173');
+  await page.getByRole('link', { name: 'Launch MongoDB Designer' }).click();
+  await expect(page).toHaveURL('http://localhost:5173/editor.html');
+});
+```
+
+#### Buenas prácticas
+__1. Organización de Pruebas__
+- __Estructura Modular__: Organiza las pruebas en módulos o archivos separados según la funcionalidad que se esté probando.
+- __Nomenclatura Clara__: Usa nombres claros y descriptivos para los archivos y funciones de prueba.
+
+__2. Integración Continua__
+- __Automatización de Pruebas__: Integra las pruebas E2E en un ciclo de integración continua para asegurar que cada cambio en el código no rompa la funcionalidad existente.
+- __Notificaciones__: Configura notificaciones para alertar a los desarrolladores sobre fallos en las pruebas.
+
+__3. Optimización del Tiempo de Ejecución__
+- __Paralelización__: Ejecuta pruebas en paralelo para reducir el tiempo total de ejecución.
+- __Optimización de Código__: Asegúrate de que el código de las pruebas esté optimizado para evitar retrasos innecesarios.
+
+__4. Mantenimiento Regular__
+- __Revisión Periódica__: Revisa periódicamente las pruebas para asegurarte de que siguen siendo relevantes y efectivas.
+- __Actualización de Pruebas__: Actualiza las pruebas cuando se agregan nuevas funcionalidades o se modifican las existentes.
+
+__5. Documentación__
+- __Documentación de Pruebas__: Mantén una documentación clara sobre cómo ejecutar las pruebas y qué se está probando.
+- __Compartir Conocimiento__: Comparte el conocimiento sobre las pruebas entre los miembros del equipo para fomentar la colaboración.
+
+Siguiendo estas buenas prácticas, puedes asegurar que tus pruebas E2E sean efectivas, mantenibles y contribuyan al éxito de tu proyecto.
 
 ### Herramientas para Frontend
 Este espacio es usado como una recopilación de herramientas y recursos que todo desarrollador frontend debe disponer a la mano.
