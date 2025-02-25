@@ -13,16 +13,23 @@ En este documento se enlistan las pautas a seguir para mantener un estandar para
 	- [Pull Requests](#pull%20requests)
 		- [Resolución de conflictos](#resolución%20de%20conflictos)
 	- [Archivo README](#archivo%20readme)
-- [Combenciones generales]()
 - [Frontend](#frontend)
 	- [Accesibilidad](#accesibilidad)
 	- [SEO](#seo)
+		- [Metaetiquetas](#metaetiquetas)
 	- [Rendimiento](#rendimiento)
 		- [Optimización de imágenes](#optimización%20de%20imágenes)
-	- [Lighthouse](#lighthouse)
-	- [Responsividad]()
-		- [Mobile First]()
-	- [CDN]()
+	- [Responsividad](#responsividad)
+		- [Mobile First](#mobile%20first)
+	- [Gestión de estado](#gestión%20de%20estado)
+		- [Estado Local](#estado%20local)
+		- [Estado Global](#estado%20global)
+	- [Interacción con API](#interacción%20con%20api)
+		- [Axios](#axios)
+		- [Hooks]()
+		- [Mensajes de error]()
+	- [Herramientas para Frontend](#herramientas%20para%frontend)
+		- [Lighthouse](#lighthouse)
 - [Backend](#backend)
 	- [API](#api)
 		- [Rest](#rest)
@@ -263,11 +270,46 @@ Para garantizar que la aplicación sea óptima y utilizable por personas con dis
 Aquellas plataformas de frontend que deben poder ser accedidas por los clientes deben posicionarse en los primeros resultados de búsqueda en los navegadores, por lo que es necesario que sigan las pautas principales de optimización para motores de búsqueda. Esto incluye:
 
 - __HTML Semántico__: Utilizar etiquetas HTML semánticas para estructurar el contenido de manera que sea significativo para los motores de búsqueda. Por ejemplo: `<article>`,  `<nav>`, `<aside>`.
-- __Metaetiquetas__: Optimizar las metaetiquetas (ej., descripción, palabras clave) para proporcionar información concisa y relevante a los motores de búsqueda. 
 - __Estrucutra de la url__:  Crear URLs limpias, legibles y ricas en palabras clave.
 - __Sitemap__: Enviar un mapa del sitio ([sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/overview?hl=es)) a los motores de búsqueda para ayudarles a rastrear e indexar el sitio de manera efectiva.
 - __Squema markup__: Implementar el [marcado de esquema](https://umbraco.com/knowledge-base/schema-markup/) para proporcionar datos estructurados sobre el contenido, mejorando la comprensión de los motores de búsqueda y la visualización de fragmentos enriquecidos.
 
+#### Metatags
+Los metadatos de un sitio web son una pieza esencial para proporcionar información de nuestro sitio a los motores de busqueda, por lo que su implementación y optimización son importantes para lograr un buen posicionamiento. Algunas de las [etiquetas más usadas](https://seocrawl.com/meta-tags/) son:
+
+__Title__ 
+Es la encargada de decirle a los motores de búsqueda la idea o tema principal sobre el que trata el contenido de la página que va a rastrear y se recomienda **no excederse en 70 caracteres**. Por ejemplo: `<title>Bienvenido a thundernet</title>`.
+ 
+ __Description__ 
+ Complemento a la etiqueta Title, con la meta description le daremos una información algo más extensa a los motores de búsqueda del contenido de nuestra página. Trataremos de detallar con la mayor precisión posible el contenido que vamos a ofrecer al usuario. Ejemplo: `<meta name="description" content="El mejor proveedor de servicios de telecomuniaciones de venezuela..."/>
+ 
+__Etiquetas Hs: Jerarquía de encabezados__ 
+Como su nombre indica, los encabezados servirán para jerarquizar y ordenar el contenido de una página, por orden de importancia (h1, h2, h3…). Se utiliza un único h1, que será el que defina el título del contenido, por ejemplo: `<h1>Sobre nosotros</h1>`
+
+__Canonical__ 
+La meta etiqueta canonical es utilizada para decir a Google cual es la página original en el caso de encontrarnos con páginas similares o idénticas. Esta etiqueta tiene una gran importancia al igual que las anteriores, ya que un incorrecto uso de la misma puede llevar a Google a pensar que la página importante es la incorrecta. [Aquí](https://seocrawl.com/canonical/) hay una guía que detalla el uso de la etiqueta.
+
+__Alt__
+A la hora de posicionarnos en Google, no debemos olvidar el posicionamiento en Google imágenes. Para esto, haremos uso de la etiqueta ALT (texto alternativo), la cual ayudará a Google a saber de qué trata nuestra imagen. Ejemplo: `<img src=”about-banner.jpg” alt=”Banner de la sección Sobre Nosotros” />`.
+
+__Robots__
+Mediante esta etiqueta, indicaremos a Google que contenido deber ser indexado y cual no, así como si los enlaces deben ser seguidos o no. Tenemos los siguientes parametros:
+-  _Index_: se toma por defecto.
+- _Follow_: se toma por defecto.
+- _Noindex_: se tiene que especificar cuando no queremos que indexe una página.
+- _Nofollow_: se tiene que especificar cuando no queremos que siga los enlaces de una página.
+
+__Open Graph__:
+Las etiquetas **Open Graph**, son un protocolo que nos permite indicar a las redes sociales que información mostrar cada vez que se comparta un enlace de nuestro sitio web. Aunque no tengan una relación directa con el SEO, sí son importantes a nivel usuario y a nivel marca, con lo que es recomendable prestarles atención ya que serán nuestra imagen en las redes sociales.
+
+Se implementan de la siguiente manera:
+```html
+<meta property=”og:type” content=”website” />
+<meta property=”og:title” content=”título de tu página o tu post” />
+<meta property=”og:description” content=”descripción del contenido de la página” />
+<meta property=”og:image” content=”enlace al archive de la imagen” />
+<meta property=”og:url” content=”permalink” />
+```
 ### Rendimiento:
 Existen algunas estrategias que ya son indispensables para maximizar el rendimiento de carga de los sitiós web y sus componentes. Como mínimo debe cumplir con:
 
@@ -276,6 +318,7 @@ Existen algunas estrategias que ya son indispensables para maximizar el rendimie
 - __Minificación y compresión__: Minificar archivos CSS y JavaScript para reducir su tamaño, y utilizar algoritmos de compresión como Gzip o Brotli para reducir aún más los tiempos de transferencia.
 - __Caché__: Aprovechar el almacenamiento en caché del navegador y los service workers para almacenar en caché los activos estáticos y las respuestas de la API, mejorando los tiempos de carga para los usuarios que regresan.
 
+> Cabe destacar que los frameworks actuales como [NextJS](https://nextjs.org/) ya incorporan o facilitan la implementación de estas prácticas. 
 #### Optimización de imagenes
 La descarga del contenido multimeda es probablemente una de las tareas más pesadas al momento de cargar un sitio web, este puede afectar gravemente a la experiencia del usuario, por lo que es importante considerar una serie de recomendaciones.
 
@@ -297,6 +340,286 @@ Utiliza herramientas para eliminar información innecesaria como la fecha de cap
 
 __Uso de herramientas automáticas__
 Puede ser favorable integrar herramientas para automatizar los procesos de compresión, conversión y redimensión al momento de subir imágenes desde la plataforma web.
+
+### Responsividad
+Al momento de crear las vistas de las aplicaciones web, ya sea una plataforma para clientes o un sistema de uso interno, es importante que la vista pueda adaptarse de la mejor manera posible a los distintos dispositivos del usuario final, por lo que es importante siempre mantener un diseño responsivo.
+
+Algunas de las ténicas clave de la responsibidad son:
+
+- __Media Queries__: Utilizar media queries en CSS para aplicar diferentes estilos según las características del dispositivo, como el tamaño de la pantalla, la resolución y la orientación. Esto permite ajustar la apariencia de los elementos y la disposición del contenido para adaptarse a cada dispositivo.
+- __Flexible Layouts__:  Utilizar técnicas de diseño flexible, como Flexbox y CSS Grid, para crear diseños que se adapten automáticamente al tamaño de la pantalla. Flexbox es ideal para diseños unidimensionales, mientras que CSS Grid es más adecuado para diseños bidimensionales.
+- __Responsive images__: Utilizar imágenes que se adapten al tamaño de la pantalla para evitar cargar imágenes grandes en dispositivos pequeños. Esto se puede lograr utilizando el elemento `<picture>` o el atributo _srcset_ en la etiqueta `<img>`.
+- __Touch Friendly design__: Asegurarse de que los elementos interactivos, como botones y enlaces, sean lo suficientemente grandes y estén espaciados adecuadamente para facilitar su uso en dispositivos táctiles. Se recomienda un tamaño mínimo de 44x44 píxeles para los objetivos táctiles.
+
+#### Mobile First:
+Hoy en día los dispositivos móviles son una parte importante de nuestras vidas, nos acompañan todo el tiempo y los usamos para resolver todas nuestra tareas cotidianas, ya sean entretenimiento, trabajo, enterarnos de noticias. 
+
+Por parte de los desarrolladores el diseño de los sistemas a menudo tiende a centrarse en el uso de escritorio, lo cual no es algo malo, pero en situaciones donde es necesario que la aplicación pueda usarse 100% desde un dispositivo móvil pensar el diseño y desarrollo comenzando por los dispositivos de escritorio puede entorpecer la simplificación de la aplicación en una pantalla de celular.
+
+Mobile First es una filosofía de diseño web que prioriza la creación de una excelente experiencia de usuario en dispositivos móviles antes de expandir el diseño a tabletas y computadoras de escritorio. Esto implica diseñar la aplicación primero para las limitaciones de los dispositivos móviles (pantallas más pequeñas, conexiones más lentas) y luego agregar funcionalidades y mejoras para dispositivos más grandes.
+
+__Beneficios del mobile first__
+
+- __Mejor experiencia del usuario en móviles__: Al diseñar primero para móviles, se asegura que la aplicación sea rápida, eficiente y fácil de usar en estos dispositivos, que suelen tener menos recursos.
+
+- __Rendimiento Óptimo__: Priorizar el rendimiento en móviles conduce a un código más limpio y eficiente, lo que beneficia a todos los usuarios, independientemente del dispositivo que utilicen.
+
+-  __SEO Mejorado__: Google y otros motores de búsqueda priorizan los sitios web optimizados para móviles, lo que puede mejorar el ranking en los resultados de búsqueda.
+
+- __Mayor flexibilidad y escalabilidad__: Un diseño Mobile First es más fácil de adaptar y escalar a diferentes tamaños de pantalla y dispositivos en el futuro. 
+
+En lineamientos generales, podemos implementar mobile first siguiendo con los pasos:
+
+1. __Comenzar con el diseño para móviles__: Diseñar la interfaz de usuario y la experiencia del usuario teniendo en cuenta las limitaciones de los dispositivos móviles. Esto incluye priorizar el contenido esencial y simplificar la navegación.
+
+2. __Utilizar media queries para adaptar el diseño__: Añadir media queries para adaptar el diseño a tabletas y computadoras de escritorio. Utilizar un enfoque ascendente (desde móviles hacia pantallas más grandes) para garantizar que la experiencia en móviles sea siempre la base.
+
+3. __Optimizar el rendimiento en móviles__: Asegurarse de que la aplicación cargue rápidamente en dispositivos móviles optimizando las imágenes, minificando el código y utilizando técnicas de caché.
+
+4. __Probar en dispositivos reales__: Probar la aplicación en una variedad de dispositivos móviles reales para asegurarse de que funciona correctamente y proporciona una buena experiencia de usuario.
+
+### Gestión de estado
+La gestión de estado se refiere a la forma en que una aplicación frontend maneja, almacena y modifica los datos que utiliza para renderizar la interfaz de usuario y responder a las interacciones del usuario. Una gestión de estado eficaz es crucial para construir aplicaciones complejas y mantenibles, especialmente aquellas que requieren interacciones dinámicas y actualizaciones en tiempo real.
+
+Una correcta gestión del estado permite:
+- __Predictibilidad__: Una buena gestión de estado hace que el comportamiento de la aplicación sea más predecible. Al centralizar y controlar el estado, es más fácil entender cómo los cambios en los datos afectan la interfaz de usuario.
+- __Mantenibilidad__: Facilita el mantenimiento del código al separar la lógica de gestión de datos de la lógica de renderizado de la interfaz de usuario. Esto permite modificar o actualizar la gestión de datos sin afectar el resto de la aplicación.
+- __Reusabilidad__: Permite reutilizar el estado y la lógica de gestión de estado en diferentes componentes de la aplicación, reduciendo la duplicación de código.
+- __Depuración__: Simplifica la depuración al proporcionar un punto centralizado para inspeccionar y modificar el estado de la aplicación. Las herramientas de gestión de estado a menudo incluyen características que facilitan el seguimiento de los cambios en el estado a lo largo del tiempo.
+- __Rendimiento__: Optimiza el rendimiento al permitir que la interfaz de usuario se actualice de manera eficiente solo cuando los datos subyacentes cambian. Esto evita actualizaciones innecesarias y mejora la velocidad de la aplicación.
+
+#### Estado Local
+El estado local se refiere a los datos que son relevantes únicamente para un componente específico y no necesitan ser compartidos con otros componentes. Se gestiona directamente dentro del componente, utilizando mecanismos como useState en React o propiedades reactivas en Vue.js.
+
+__Cuando usar estado local?__
+Estos son algunos de los casos en los que es mejor considerar usar el estado local:
+
+- __Control de un formulario__:  Cuando un componente maneja un formulario simple y los datos solo se necesitan dentro de ese formulario.
+-  __Control de la visibilidad de un modal__: Cuando un componente necesita controlar si un modal está abierto o cerrado.
+- __Control de la selección en una lista__: Cuando un componente muestra una lista de elementos y necesita rastrear cuál está seleccionado.
+
+#### Estado Global
+El estado global se refiere a los datos que necesitan ser compartidos entre múltiples componentes o que requieren ser accedidos desde diferentes partes de la aplicación. Se gestiona utilizando bibliotecas de gestión de estado como Redux, Vuex, Zustand o Context API.
+
+__Cuando usar estado global?__
+Estos son algunos de los casos en los que es mejor considerar usar el estado local:
+
+- __Datos de autenticación del usuario__: Cuando múltiples componentes necesitan conocer si el usuario está autenticado y acceder a su información (nombre, rol, permisos).
+- __Configuración de la aplicación__: Cuando múltiples componentes necesitan acceder a la configuración de la aplicación (tema, idioma, ajustes regionales).
+- __Carrito de compras__: Cuando múltiples componentes necesitan acceder y modificar el contenido del carrito de compras.
+
+### Interacción con API
+La interacción con APIs es fundamental en el desarrollo moderno de aplicaciones. Estas son las mejores prácticas a seguir:
+
+#### Axios
+Para realizar peticiones HTTP se recomienda usar [Axios](https://axios-http.com/) como cliente HTTP por sus ventajas:
+- Interceptores para manejo global de requests/responses
+- Cancelación de peticiones
+- Transformación automática de datos JSON
+- Protección contra XSRF
+- Soporte para progreso de uploads
+
+Configuración recomendada:
+
+```javascript
+// axios-instance.js
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: process.env.API_BASE_URL,
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  }
+});
+
+// Request interceptor
+api.interceptors.request.use(config => {
+  const token = localStorage.getItem('access_token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+// Response interceptor
+api.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response?.status === 401) {
+      // Handle token refresh
+    }
+    return Promise.reject(error);
+  }
+);
+
+export default api;
+```
+
+#### Hooks
+Para React, se recomienda crear hooks personalizados para manejar las peticiones API:
+
+```javascript
+// useApi.js
+import { useState, useEffect } from 'react';
+import api from './axios-instance';
+
+function useApi(url, options = {}) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api(url, options);
+        setData(response.data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [url]);
+
+  return { data, loading, error };
+}
+
+export default useApi;
+```
+
+#### Mensajes de error
+Para manejo consistente de errores:
+1. Crear un servicio de notificaciones
+2. Mapear códigos de error HTTP a mensajes amigables
+3. Loggear errores en sistema de monitoreo
+4. Mostrar feedback al usuario
+
+Ejemplo de implementación:
+```javascript
+// error-handler.js
+const errorMessages = {
+  400: 'Solicitud inválida',
+  401: 'No autorizado',
+  403: 'Acceso denegado',
+  404: 'Recurso no encontrado',
+  500: 'Error del servidor',
+  default: 'Error inesperado'
+};
+
+export function handleApiError(error) {
+  const status = error.response?.status;
+  const message = errorMessages[status] || errorMessages.default;
+  
+  // Mostrar notificación al usuario
+  showNotification(message, 'error');
+  
+  // Loggear error
+  logError(error);
+  
+  // Lanzar error para manejo adicional
+  throw error;
+}
+```
+
+#### Caching
+Implementar estrategias de caching para mejorar rendimiento:
+- Cache en memoria para datos frecuentes
+- Cache en localStorage para datos persistentes
+- Cache en service workers para offline support
+
+Ejemplo básico:
+```javascript
+const cache = new Map();
+
+async function fetchWithCache(url) {
+  if (cache.has(url)) {
+    return cache.get(url);
+  }
+
+  const response = await api.get(url);
+  cache.set(url, response.data);
+  return response.data;
+}
+```
+
+#### Paginación
+Para manejo eficiente de grandes datasets:
+- Implementar paginación del lado del servidor
+- Usar infinite scroll o paginación numérica
+- Prefetch de siguientes páginas
+
+Ejemplo:
+```javascript
+function usePaginatedApi(url, pageSize = 10) {
+  const [page, setPage] = useState(1);
+  const [data, setData] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
+
+  const fetchMore = async () => {
+    const response = await api.get(url, {
+      params: { page, pageSize }
+    });
+    
+    setData(prev => [...prev, ...response.data]);
+    setHasMore(response.data.length === pageSize);
+    setPage(prev => prev + 1);
+  };
+
+  return { data, fetchMore, hasMore };
+}
+```
+
+#### Optimización de peticiones
+- Debounce para búsquedas
+- Cancelación de peticiones duplicadas
+- Throttling para evitar sobrecarga
+- Uso de AbortController
+
+Ejemplo:
+```javascript
+const searchController = new AbortController();
+
+async function search(query) {
+  try {
+    const response = await api.get('/search', {
+      params: { q: query },
+      signal: searchController.signal
+    });
+    return response.data;
+  } catch (error) {
+    if (axios.isCancel(error)) {
+      console.log('Request canceled');
+    }
+  }
+}
+
+// Cancelar petición anterior
+searchController.abort();
+```
+
+### Herramientas para Frontend
+Este espacio es usado como una recopilación de herramientas y recursos que todo desarrollador frontend debe disponer a la mano.
+
+#### Lighthouse
+[Lighthouse](https://chromewebstore.google.com/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?hl=es&pli=1) es una herramienta de código abierto, automatizada, desarrollada por Google, que sirve para analizar la calidad de las páginas web. Se utiliza para auditar diferentes aspectos de una página, proporcionando informes detallados sobre:
+
+- __Rendimiento__: Evalúa la velocidad de carga y la optimización de la página.
+- __Accesibilidad__: Verifica si la página sigue las mejores prácticas para ser accesible a todos los usuarios, incluyendo aquellos con discapacidades.
+- __SEO__: Analiza si la página está optimizada para ser encontrada y rankeada por los motores de búsqueda.
+- __Buenas prácticas__:  Comprueba si la página sigue las mejores prácticas de desarrollo web moderno.
+- __Progressive Web App(PWA)__: Si la página es una PWA, verifica si cumple con los requisitos para ser una aplicación web progresiva.
+
+Lighthouse utiliza varias métricas para evaluar el rendimiento de una página web:
+- __First Contentful Paint (FCP)__: Mide el tiempo que tarda el navegador en renderizar el primer elemento de contenido (texto, imagen, etc.) en la pantalla.
+- __Largest Contentful Paint (LCP)__: Mide el tiempo que tarda en renderizarse el elemento de contenido más grande visible en la ventana gráfica.
+- __Speed Index__: Mide la rapidez con la que se muestra visualmente el contenido de la página durante la carga.
+- __Time to Interactive (TTI)__: Mide el tiempo que tarda la página en volverse completamente interactiva, es decir, cuando los usuarios pueden interactuar con todos los elementos de la interfaz.
+- __Total Blocking Time (TBT)__: Mide el tiempo total durante el cual la página está bloqueada y no puede responder a las interacciones del usuario.
+- __Cumulative Layout Shift (CLS)__: Mide la estabilidad visual de la página, es decir, cuánto cambian de posición los elementos mientras se carga la página.
 ## Backend
 En el backend manejaremos todo lo relacionado a la lógica de negocios, por lo que involucrará a todos aquellos servicios de almacenamiento y procesamiento interno, por lo que resulta importante mantener una estructura en base a protocolos conocidos y buenas practicas.
 ### API
