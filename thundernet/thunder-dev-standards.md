@@ -161,7 +161,7 @@ Un buen template asegura que los PRs incluyan información relevante. Aquí un e
 ## Descripción
 <!--- Explica el propósito de este PR. Incluye enlaces a issues relacionados (ej: "Resuelve #123"). -->
 
-## Cambios Propuertos
+## Cambios Propuestos
 <!--- Lista los cambios técnicos principales. -->
 - [ ] Nueva funcionalidad: [Describir brevemente].
 - [ ] Corrección de bug: [Mencionar el issue].
