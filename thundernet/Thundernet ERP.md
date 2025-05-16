@@ -43,7 +43,8 @@
 
 ### Planes
 - [ ] Tabla/Formularios CRUD para gestión de planes
-
+### Promociones
+- [ ] Campo de selección múltiple para establecer el tipo de cliente
 ### Clientes
 - [ ] Diseñar vista detallada del cliente (sección información extra)
 - [ ] Botón para recuperar clientes archivados
