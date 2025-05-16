@@ -27,7 +27,7 @@
 
 ### General
 
-- [ ] Corregir cache de redist en el endpoint de los estados que devuelve también la lista de ciudades
+- [ ] Corregir cache de redist en el endpoint de los estados que devuelve innecesariamente la lista de ciudades
 ---
 
 ## Frontend
