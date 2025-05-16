@@ -27,7 +27,7 @@
 
 ### General
 
-- [ ] Crear acciones de contrato en API (rechazar/aprobar/eliminar)
+- [ ] Corregir cache de redist en el endpoint de los estados que devuelve también la lista de ciudades
 ---
 
 ## Frontend
