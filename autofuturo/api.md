@@ -30,6 +30,7 @@ tags:
 
 ### 🐛 Bugs
 - [ ] Validar parent_key no puede ser vacio (si se envía en el body) `POST /sources/categories`
+- [ ] Error al crear una organización nueva a un usuario que no posee ninguna, este no le asigna la recién creada por default
 ### ✅ Completadas
 
 - [x] Agregar order a plan_features
