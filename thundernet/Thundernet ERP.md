@@ -7,6 +7,8 @@
 - [ ] Configurar el store de archivos para subir imágenes, documentos, etc. (API/Storage)
 - [ ] Configurar el túnel para el store de imágenes (Servicios externos/DevOps)
 
+### Clientes
+- [ ] Relacionar el tipo de documento con el tipo de contribuyente
 ### Usuarios
 - [ ] Implementar lógica de invitación de usuarios (endpoints y emails)
 - [ ] Crear API para gestionar estatus de usuarios (activar/suspender)
@@ -44,13 +46,13 @@
 ### Planes
 - [ ] Tabla/Formularios CRUD para gestión de planes
 ### Promociones
-- [ ] Campo de selección múltiple para establecer el tipo de cliente
 - [ ] Agregar posibilidad de configurar el precio de la instalación (de manera porcentual)
 - [ ] Campo para configurar el  tipo o estatus del cliente que puede usar da promoción
 ### Clientes
 - [ ] Diseñar vista detallada del cliente (sección información extra)
 - [x] Botón para recuperar clientes archivados
 - [ ] Colocar campo de tipo de contribuyente dinámico dependiendo del tipo de documento y otro campo booleano para guardar el rif clientes que no son organizaciones
+- [ ] Mejorar mensaje de respuesta al buscar el documento de un cliente
 
 ### Contratos
 - [ ] Vista de detalle de contrato con historial y estados
