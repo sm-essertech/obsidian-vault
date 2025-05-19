@@ -45,13 +45,20 @@
 - [ ] Tabla/Formularios CRUD para gestión de planes
 ### Promociones
 - [ ] Campo de selección múltiple para establecer el tipo de cliente
+- [ ] Agregar posibilidad de configurar el precio de la instalación (de manera porcentual)
+- [ ] Campo para configurar el  tipo o estatus del cliente que puede usar da promoción
 ### Clientes
 - [ ] Diseñar vista detallada del cliente (sección información extra)
-- [ ] Botón para recuperar clientes archivados
+- [x] Botón para recuperar clientes archivados
+- [ ] Colocar campo de tipo de contribuyente dinámico dependiendo del tipo de documento y otro campo booleano para guardar el rif clientes que no son organizaciones
 
 ### Contratos
 - [ ] Vista de detalle de contrato con historial y estados
 - [ ] Botones de acción para contratos (con confirmaciones)
+- [ ] Agregar todos los campos nuevos de ubicación a la hora de crear un contrato al cliente
 
 ### General
 - [ ] Integrar store de archivos en componentes necesarios (ej. uploader de imágenes)
+
+### Bugs
+- [ ] 
