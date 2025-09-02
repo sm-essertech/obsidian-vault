@@ -6,9 +6,9 @@ tags:
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue.svg)](https://github.com/autofuturo/autofuturo-api)
 
 ## 📋 Tareas / Bugs
-### 🚨 Prioritarias
+### Pendientes
 
-- [ ] 
+- [ ] Crear un filtro de listingType para las categorías y el buscador en base a la query de listingType
 
 ### 😴 Para Después
 - [ ] 
