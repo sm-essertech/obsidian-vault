@@ -14,7 +14,7 @@ tags:
 - [ ] 
 
 ### 🐛 Bugs
-- [ ] 
+- [ ] No reindexa en mailisearch al realizar un patch de un listing
 
 ## Flujo de pagos 
  1. Cuando se modifica una factura debe modificarse tambien los estatus de sus pagos relacionados.
