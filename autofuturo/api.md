@@ -10,7 +10,7 @@ tags:
 
 - [ ] Crear un filtro de listingType para las categorías y el buscador en base a la query de listingType
 - [ ] Hacer que el precio del listing sea opcional
-- [ ] Corregir filtro de modelos cuando solo hay resultados en una marca, no muestra el filtro.
+- [x] Corregir filtro de modelos cuando solo hay resultados en una marca, no muestra el filtro.
 
 
 ### 😴 Para Después
