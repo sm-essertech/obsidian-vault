@@ -18,8 +18,8 @@ tags:
 - [ ] 
 
 ### 🐛 Bugs
-- [ ] Ordenar los resultados de bodyType por cantidad de listings.
-- [ ] Arreglar filtro de bodyType en listings (no filtra ni las lagrimas).
+- [x] Ordenar los resultados de bodyType por cantidad de listings.
+- [x] Arreglar filtro de bodyType en listings (no filtra ni las lagrimas).
 
 ## Flujo de pagos 
  1. Cuando se modifica una factura debe modificarse tambien los estatus de sus pagos relacionados.
