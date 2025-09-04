@@ -11,7 +11,7 @@ tags:
 - [x] Crear un filtro de listingType para las categorías y el buscador en base a la query de listingType
 - [x] Hacer que el precio del listing sea opcional
 - [x] Corregir filtro de modelos cuando solo hay resultados en una marca, no muestra el filtro.
-- [ ] Crear endpoint para duplicar listing
+- [x] Crear endpoint para duplicar listing
 
 
 ### 😴 Para Después
