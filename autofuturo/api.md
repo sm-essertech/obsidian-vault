@@ -11,13 +11,15 @@ tags:
 - [x] Crear un filtro de listingType para las categorías y el buscador en base a la query de listingType
 - [x] Hacer que el precio del listing sea opcional
 - [x] Corregir filtro de modelos cuando solo hay resultados en una marca, no muestra el filtro.
+- [ ] Crear endpoint para duplicar listing
 
 
 ### 😴 Para Después
 - [ ] 
 
 ### 🐛 Bugs
-- [x] No reindexa en mailisearch al realizar un patch de un listing
+- [ ] Ordenar los resultados de bodyType por cantidad de listings.
+- [ ] Arreglar filtro de bodyType en listings (no filtra ni las lagrimas).
 
 ## Flujo de pagos 
  1. Cuando se modifica una factura debe modificarse tambien los estatus de sus pagos relacionados.
